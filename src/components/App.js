@@ -36,6 +36,11 @@ class App extends React.Component {
       tasks: [...prevState.tasks, { id: newTaskId, name: TaskName, completed: false }]
     }));
   };
+  onDeleteCompleted=()=>{
+    this.setState((prevState) => ({
+      tasks: prevState.tasks.filter((task) => !task.completed)
+    }));
+  };
   render() {
     return (
       <section id="todo">
@@ -47,7 +52,7 @@ class App extends React.Component {
               <Route path="/add-task" element={<AddTask  addTask={this.addTask} />} />
             </Routes>
 
-            <Footer />
+            <Footer onDeleteCompleted={this.onDeleteCompleted} />
           </BrowserRouter>
         
     <ButtonN color="primary" className="m-3">
