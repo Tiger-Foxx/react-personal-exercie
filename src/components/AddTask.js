@@ -5,6 +5,15 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class AddTask extends React.Component{
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.addTask(this.newTask.value);
+        
+        alert("Nouvelle tache : " + this.newTask.value);
+                
+        this.newTask.value = ''; // Clear input field after form submission.  // eslint-disable-line react/no-direct-mutation-state
+        this.props.history.push('/');
+    };
     render(){
         return(
             <section>

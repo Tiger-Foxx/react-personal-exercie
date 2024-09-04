@@ -3,37 +3,31 @@
 
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ToDo from './ToDo';
+import { useParams } from 'react-router-dom';
 
-const ToDoList=()=>{
+
+const ToDoList=({tasks,match,onToggleCompleted})=>{
+    const { filter } = useParams();
+    let TaskFiltered;
+    switch (filter) {
+      case 'completed':
+        TaskFiltered = tasks.filter((task) => task.completed===true);
+        break;
+    
+      default:
+        TaskFiltered = tasks;
+     
+    }
     return(
       <>  
       <h1 className="m-3">Liste de tâches</h1>
         <ul className="list-group m-3">
-        <li className="list-group-item d-flex align-tiems-center">
-          Ranger la vaisselle
-          <button className="btn btn-sm ms-auto btn-outline-success">
-            ✓
-          </button>
-         
-        </li>
-        <li className="list-group-item d-flex align-tiems-center">
-          Répondre appel d'offres
-          <button className="btn btn-sm ms-auto btn-outline-success">
-            ✓
-          </button>
-        </li>
-        <li className="list-group-item d-flex align-tiems-center">
-          Signer contrat
-          <button className="btn btn-sm ms-auto btn-outline-success">
-            ✓
-          </button>
-        </li>
-        <li className="list-group-item d-flex align-tiems-center">
-          Ranger la salon
-          <button className="btn btn-sm ms-auto btn-outline-success">
-            ✓
-          </button>
-        </li>
+        {/* Utiliser map pour parcourir les tâches et rendre le composant ToDo pour chaque tâche */}
+        {TaskFiltered.map((task) => (
+          <ToDo key={task.id} task={task}  onToggleCompleted = {onToggleCompleted} />
+        ))}
+       
       </ul>
       </>
     )
